@@ -184,12 +184,10 @@
       onChangeAssetsValue(value){
         this.form.depreciationMonth = value * (this.form.depreciationRate /100)
         this.form.assetNetValue = value - this.form.depreciationAcc;
-        // console.log("onChangeAssetsValue",value)
       },
       /* 折旧率改变 */
       onChangeRate(value) {
         this.form.depreciationMonth = this.form.assetsValue * (value /100)
-        // console.log('onChangeRate===', value);
       },
       /* 累计折旧 */
       onChangeDepreciationAcc(value){
@@ -198,25 +196,20 @@
 
       ChangeStatusDate(value, dateString){
         this.selStatusDate = dateString;
-        console.log("ChangeStatusDate=",dateString)
       },
       /* 状态下拉列表改变 */
       OnChangeSelect(value){
         value <= 2 ? this.showDateP = false : this.showDateP = true;
-        // console.log('OnChangeSelect===', value);
       },
       /* 折旧年限改变 */
       onChangePeriod(value) {
-        console.log('onChangePeriod===', value);
       },
       /* 入库日期 */
       onChangeTime(value, dateString) {
         this.form.storageDate = dateString;
-        // console.log("onchangetime=",value,dateString)
       },
 
       showModal(value){
-        // console.log(value);
         value !== 0 ? this.findAssetsById(value) : 0;
         this.showM = true;
 
@@ -227,8 +220,8 @@
           if (valid) {
             this.showM = false;
             this.form.status <= 3 ? this.form.statusDate = null : this.form.statusDate = this.selStatusDate;
-            let editurl = 'http://localhost:8088/invisiable/update';
-            let addturl = 'http://localhost:8088/invisiable/add'
+            let editurl = '/invisiable/update';
+            let addturl = '/invisiable/add'
             let url = this.form.id === '' ? addturl : editurl;
             this.$axios({
               method: 'post',
@@ -242,7 +235,6 @@
             this.$message.warning('请填写完整数据!');
           }
         });
-        console.log("提交数据==", this.form)
       },
       handleCancel(e) {
         this.showM = false;
@@ -250,9 +242,8 @@
       findAssetsById(value) {
         this.$axios({
           method: 'get',
-          url: 'http://localhost:8088/invisiable/findById/' + value,
+          url: '/invisiable/findById/' + value,
         }).then(res => {
-          console.log("findAssetsById", res.data);
           this.OnChangeSelect(res.data.status);
           this.selStatusDate = res.data.statusDate;
           this.form = res.data;
@@ -261,11 +252,10 @@
       /* 获取状态列表 */
       getStatusDate() {
         this.$axios({
-          url: "http://localhost:8088/status/getAllStatus",
+          url: "/status/getAllStatus",
           methos: "get",
         }).then(res => {
           this.showStatus = res.data
-          // console.log("getStatusDate", this.showStatus);
         })
       },
     },

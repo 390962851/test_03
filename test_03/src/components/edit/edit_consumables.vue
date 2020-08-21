@@ -124,21 +124,18 @@
     },
     methods: {
 
-
     /* 入库日期 */
     onChangeTime(value, dateString) {
       this.form.storageDate = dateString;
-      // console.log("onchangetime=",value,dateString)
     },
     showModal(value) {
-      // console.log(value);
       value !== 0 ? this.findConsumablesById(value) : 0;
       this.showM = true;
     },
     /* 提交按钮 */
     handleOk() {
-      let editurl = 'http://localhost:8088/consumables/update';
-      let addturl = 'http://localhost:8088/consumables/add'
+      let editurl = '/consumables/update';
+      let addturl = '/consumables/add';
       let url = this.form.id === '' ? addturl : editurl;
       this.$refs.ruleForm.validate(valid => {
         if (valid) {
@@ -156,7 +153,6 @@
           console.log('error submit!!',valid);
         }
       });
-      console.log("提交数据==", this.form)
     },
     handleCancel(e) {
       this.showM = false;
@@ -164,9 +160,8 @@
     findConsumablesById(value) {
       this.$axios({
         method: 'get',
-        url: 'http://localhost:8088/consumables/findById/' + value,
+        url: '/consumables/findById/' + value,
       }).then(res => {
-        console.log("findAssetsById", res.data);
         this.form = res.data;
       })
     },

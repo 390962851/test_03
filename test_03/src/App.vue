@@ -2,6 +2,7 @@
   <router-view v-if="isRouterAlive"></router-view>
 </template>
 <script>
+  import { initDynamicRoutes } from '@/router/index.js'
   export default {
     name: 'App',
     provide() {
@@ -16,12 +17,15 @@
     },
     methods: {
       reload() {
-        this.isRouterAlive = false
+        this.isRouterAlive = false;
         this.$nextTick(function() {
           this.isRouterAlive = true
         })
       }
     },
-    components: {}
+    components: {},
+    created() {
+      initDynamicRoutes();
+    }
   };
 </script>

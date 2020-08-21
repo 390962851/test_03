@@ -171,12 +171,10 @@
       },
       /* 点击页码*/
       chageCurrent(current, pageSize) {
-        // console.log("change=",current,pageSize)
       },
       /* 修改每页条数*/
       onShowSizeChange(current, pageSize) {
         this.pageSize = pageSize;
-        // console.log("page==",current,pageSize)
       },
       ResetInput() {
         this.searchInput = null;
@@ -188,7 +186,7 @@
         } else {
           this.$axios({
             method: 'get',
-            url: 'http://localhost:8088/invisiable/findByName/' + value,
+            url: '/invisiable/findByName/' + value,
           }).then(res => {
             this.datatable = res.data;
           })
@@ -200,7 +198,7 @@
       confirm(id) {
         // console.log(e);
         this.$axios({
-          url: 'http://localhost:8088/invisiable/deleteById/' + id,
+          url: '/invisiable/deleteById/' + id,
           method: 'delete',
         }).then(res => {
           // console.log(res)
@@ -220,10 +218,9 @@
       getUserData() {
         this.$axios({
           method: 'get',
-          url: 'http://localhost:8088/invisiable/selAll',
+          url: '/invisiable/selAll',
         }).then(res => {
           this.datatable = res.data;
-          // console.log("datatable",this.datatable)
         })
       },
     },

@@ -203,12 +203,10 @@
       onChangeAssetsValue(value){
         this.form.depreciationMonth = value * (this.form.depreciationRate /100)
         this.form.assetNetValue = value - this.form.depreciationAcc;
-        // console.log("onChangeAssetsValue",value)
       },
       /* 折旧率改变 */
       onChangeRate(value) {
         this.form.depreciationMonth = this.form.assetsValue * (value /100)
-        // console.log('onChangeRate===', value);
       },
       /* 累计折旧 */
       onChangeDepreciationAcc(value){
@@ -217,21 +215,17 @@
 
       ChangeStatusDate(value, dateString){
         this.selStatusDate = dateString;
-        // console.log("ChangeStatusDate=",dateString)
       },
       /* 状态下拉列表改变 */
       OnChangeSelect(value){
         value <= 2 ? this.showDateP = false : this.showDateP = true;
-        // console.log('OnChangeSelect===', value);
       },
       /* 折旧年限改变 */
       onChangePeriod(value) {
-        console.log('onChangePeriod===', value);
       },
       /* 入库日期 */
       onChangeTime(value, dateString) {
         this.form.storageDate = dateString;
-        // console.log("onchangetime=",value,dateString)
 
       },
       /* 编辑弹框 */
@@ -239,7 +233,6 @@
         this.visible = true;
         this.getStatusDate();
         this.findAssetsById();
-        // console.log("editUserId", this.editUserId)
       },
       /* 提交按钮 */
       handleOk(e) {
@@ -248,7 +241,7 @@
             this.form.status <= 2 ? this.form.statusDate = null : this.form.statusDate = this.selStatusDate;
             this.$axios({
               method: 'put',
-              url: 'http://localhost:8088/assets/update',
+              url: '/assets/update',
               data: this.form
             }).then(res => {
               res.data ? this.$message.success('修改成功!') :  this.$message.error('修改失败!');
@@ -260,7 +253,6 @@
             this.$message.warning('请填写完整数据!');
           }
         });
-        console.log("提交数据==", this.form)
       },
       handleCancel(e) {
         this.visible = false;
@@ -268,21 +260,18 @@
       /* 获取状态列表 */
       getStatusDate() {
         this.$axios({
-          url: "http://localhost:8088/status/getAllStatus",
+          url: "/status/getAllStatus",
           methos: "get",
         }).then(res => {
           this.showStatus = res.data
-          // console.log("getStatusDate", this.showStatus);
         })
       },
 
       findAssetsById() {
         this.$axios({
           method: 'get',
-          url: 'http://localhost:8088/assets/findById/' + this.editUserId,
+          url: '/assets/findById/' + this.editUserId,
         }).then(res => {
-          console.log("findAssetsById", res.data);
-          // res.data.status <= 2 ? this.disabled = true : this.disabled = false;
           this.OnChangeSelect(res.data.status);
           this.selStatusDate = res.data.statusDate;
           this.form = res.data;

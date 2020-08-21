@@ -36,7 +36,7 @@
     },
     destroyed() {
       // 离开页面时关闭websocket连接
-      this.ws.onclose(undefined);
+      // this.ws.onclose(undefined);
     },
     methods: {
       // 发送聊天信息

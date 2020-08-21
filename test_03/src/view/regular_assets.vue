@@ -211,14 +211,12 @@
         this.current = current;
         this.pageSize = pageSize;
         this.getUserData();
-        // console.log("change=",current,pageSize)
       },
       /* 修改每页条数*/
       onShowSizeChange(current, pageSize) {
         this.current = current;
         this.pageSize = pageSize;
         this.getUserData();
-        // console.log("pageSize==",current,pageSize)
       },
       ResetInput(){
         this.searchInput = null;
@@ -227,16 +225,15 @@
       onSearch(value){
         this.$axios({
           method: 'get',
-          url: 'http://localhost:8088/assets/findByName/' + value,
+          url: '/assets/findByName/' + value,
         }).then(res => {
           this.datatable = res.data;
         })
       },
       /* 删除方法*/
       confirm(id) {
-        // console.log(e);
         this.$axios({
-          url: 'http://localhost:8088/assets/deleteById/'+id,
+          url: '/assets/deleteById/'+id,
           method: 'delete',
         }).then(res => {
           // console.log(res)
@@ -256,11 +253,10 @@
       getUserData() {
         this.$axios({
           method: 'get',
-          url: 'http://localhost:8088/assets/selAll/'+this.current+'/'+this.pageSize,
+          url: '/assets/selAll/'+this.current+'/'+this.pageSize,
         }).then(res => {
           this.datatable = res.data.list;
           this.total = res.data.count;
-          // console.log("datatable",this.datatable)
         })
       },
     },

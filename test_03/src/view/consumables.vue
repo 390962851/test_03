@@ -54,7 +54,8 @@
 </template>
 <script>
   import edit_consumables from "../components/edit/edit_consumables.vue";
-  const columns = [{
+  const columns = [
+    {
       title: '序号',
       key: 'id',
       dataIndex: 'id',
@@ -141,14 +142,12 @@
         this.current = current;
         this.pageSize = pageSize;
         this.findPage();
-        // console.log("change=",current,pageSize)
       },
       /* 修改每页条数*/
       onShowSizeChange(current, pageSize) {
         this.current = current;
         this.pageSize = pageSize;
         this.findPage();
-        // console.log("page==",current,pageSize)
       },
       ResetInput() {
         this.searchInput = null;
@@ -160,7 +159,7 @@
         } else {
           this.$axios({
             method: 'get',
-            url: 'http://localhost:8088/consumables/findByName/' + value,
+            url: '/consumables/findByName/' + value,
           }).then(res => {
             this.datatable = res.data;
           })
@@ -170,12 +169,10 @@
       },
       /* 删除方法*/
       confirm(id) {
-        // console.log(e);
         this.$axios({
-          url: 'http://localhost:8088/consumables/deleteById/' + id,
+          url: '/consumables/deleteById/' + id,
           method: 'delete',
         }).then(res => {
-          // console.log(res)
           if (res.data) {
             this.$message.success('删除成功!');
             this.getUserData();
@@ -188,16 +185,6 @@
       cancel() {
         this.$message.warning('明智的选择');
       },
-      /* 获取列表*/
-      getUserData() {
-        this.$axios({
-          method: 'get',
-          url: '/consumables/getAll',
-        }).then(res => {
-          this.datatable = res.data;
-          // console.log("datatable",this.datatable)
-        })
-      },
       findPage() {
         this.$axios({
           method: 'get',
@@ -205,12 +192,13 @@
         }).then(res => {
           this.datatable = res.data.list;
           this.total = res.data.total;
-          // console.log("datatable",res.data)
+        })
+        .catch(err => {
+          console.log("err==",err)
         })
       },
     },
     created() {
-      // this.getUserData();
       this.findPage();
     }
   };

@@ -85,13 +85,7 @@
       };
     },
     created() {
-      // this.$axios({
-      //   methods:"Get",
-      //   url: "http://localhost:8088/user/dept/zhangsan"
-      // }).then(res => {
-      //   this.UserDate = res.data;
-      //   // console.log(this.UserDate)
-      // })
+      // console.log("home==",this.$store.state.rightList);
     }
   };
 </script>

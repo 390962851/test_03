@@ -74,11 +74,9 @@
     methods: {
       showModal() {
         this.visible = true;
-        // console.log(this.editUserId)
       },
       handleOk(e) {
         this.loading = true;
-        console.log("提交数据==",this.form)
         setTimeout(() => {
           this.$message.success("修改成功");
           this.visible = false;

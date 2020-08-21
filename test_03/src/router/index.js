@@ -1,10 +1,32 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from '@/store/index.js'
+import {ruleMappings, f} from './menu/menu'
+import Users from '@/components/user/Users.vue'
+import Roles from '@/components/role/Roles.vue'
+import GoodsCate from '@/components/goods/GoodsCate.vue'
+import GoodsList from '@/components/goods/GoodsList.vue'
 
 Vue.use(Router);
 
+// const userRule = { path: '/users', component: Users };
+// const roleRule = { path: '/roles', component: Roles };
+// const goodsRule = { path: '/goods', component: GoodsList };
+// const categoryRule = { path: '/categories', component: GoodsCate };
+// const ruleMapping = {
+//   'users': userRule,
+//   'roles': roleRule,
+//   'goods': goodsRule,
+//   'categories': categoryRule
+// };
+const error_404 = { path: '*', name: 'error_404',
+  meta: {title: '错误页面'},
+  component: () => import('@/view/error-page/404')
+};
+
 const router = new Router({
-  routes: [{
+  routes: [
+    {
       path: '/',
       name: 'layout',
       component: () => import('@/view/layout'),
@@ -18,7 +40,6 @@ const router = new Router({
           },
           component: () => import('@/view/home')
         },
-
         {
           path: 'regularAssets',
           name: 'regularAssets',
@@ -46,8 +67,6 @@ const router = new Router({
           },
           component: () => import('@/view/consumables')
         },
-
-
         {
           path: 'table',
           name: 'table',
@@ -101,27 +120,25 @@ const router = new Router({
       },
       component: () => import("@/view/error-page/500.vue")
     },
-    {
-      path: '*',
-      name: 'error_404',
-      meta: {
-        title: '错误页面'
-      },
-      component: () => import('@/view/error-page/404')
-    },
+    // {
+    //   path: '*',
+    //   name: 'error_404',
+    //   meta: {
+    //     title: '错误页面'
+    //   },
+    //   component: () => import('@/view/error-page/404')
+    // },
   ]
 });
 
 router.beforeEach((to, from, next) => {
-  document.title = "Vue_项目-" + to.meta.title
-  // console.log("Authorization===", localStorage.getItem('Authorization'));
+  document.title = "Vue_项目-" + to.meta.title;
+  // console.log("router=",router.options.routes[0]);
+  let token = sessionStorage.getItem('Authorization');
   if (to.path === '/login') {
-    next();
+    token !== null ? next('/') : next();
   } else {
-    let token = localStorage.getItem('Authorization');
     if (token === null || token === '') {
-      // alert("请先登录");
-      // this.$message.warning("请先登录");
       next('/login');
     } else {
       next();
@@ -129,4 +146,27 @@ router.beforeEach((to, from, next) => {
   }
 });
 
+export function initDynamicRoutes() {
+  //根据二级权限，对路由规则进行动态添加
+  const currentRoutes = router.options.routes;
+  const rightList = store.state.rightList;
+  // console.log("route===right===",rightList);
+  rightList.forEach(item => {
+    item.children.forEach(item => {
+      const itemRule = ruleMappings[item.path];
+      itemRule.perms = item.rights; // 路由下的权限
+      // itemRule.meta = item.rights; // 路由下的权限
+      currentRoutes[0].children.push(itemRule);
+    })
+  });
+  currentRoutes.push(error_404);
+  // router.$addRoutes(currentRoutes);
+  router.addRoutes(currentRoutes);//vue原生添加路由函数，会生成警告
+}
+
+//在动态添加路由的地方使用this.$router.$addRoutes(params)改函数
+router.$addRoutes = (params) => {
+  router.matcher = new Router({ model: 'history'}).matcher;
+  router.addRoutes(params)
+};
 export default router;

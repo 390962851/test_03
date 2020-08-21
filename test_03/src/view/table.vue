@@ -180,15 +180,12 @@
       },
       /* 点击页码*/
       chageCurrent(current, pageSize) {
-        console.log("change=", current, pageSize)
       },
       /* 修改每页条数*/
       onShowSizeChange(current, pageSize) {
         this.pageSize = pageSize;
-        console.log("page==", current, pageSize)
       },
       confirm(e) {
-        console.log(e);
         this.$message.success('删除成功!');
       },
       cancel() {
@@ -202,7 +199,6 @@
           url: 'http://rest.apizza.net/mock/adea43a54005c86cd83bf19b1432c015/gd/v1/b/user/all_user',
 
         }).then(res => {
-          // console.log(res.data.list);
           this.datatable = res.data.list
         })
       }
