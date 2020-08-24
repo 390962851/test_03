@@ -4,75 +4,17 @@
       <div class="logo">{{collapsed ? 'LOGO':'项目'}}</div>
       <a-menu theme="dark" @click="saveNavState" mode="inline" :defaultOpenKeys="openKeys"
               :default-selected-keys="selectedKeys">
-        <a-menu-item key="数据展示">
-          <router-link to="/" tag="div">
-            <a-icon type="radar-chart"/>
-            <span>数据展示</span>
-          </router-link>
-        </a-menu-item>
-        <a-sub-menu key="资产管理">
-          <span slot="title">
-            <a-icon type="money-collect"/>
-            <span>资产管理</span>
-          </span>
-          <a-menu-item key="固定资产">
-            <router-link to="/regularAssets">
-              固定资产
-            </router-link>
-          </a-menu-item>
-          <a-menu-item key="无形资产">
-            <router-link to="/invisibleAssets">
-              无形资产
-            </router-link>
-          </a-menu-item>
-          <a-menu-item key="易耗品">
-            <router-link to="/consumables">
-              易耗品
-            </router-link>
-          </a-menu-item>
-        </a-sub-menu>
-        <a-sub-menu key="员工管理">
-          <span slot="title">
-            <a-icon type="user"/>
-            <span>员工管理</span>
-          </span>
-          <a-menu-item key="员工列表">
-            <router-link to="/table">
-              员工列表
-            </router-link>
-          </a-menu-item>
-        </a-sub-menu>
-        <a-sub-menu key="业务管理">
-         <span slot="title">
-           <a-icon type="appstore"/>
-            <span>业务管理</span>
-          </span>
-          <a-menu-item key="/workList">
-            <router-link to="/workList">工单管理</router-link>
-          </a-menu-item>
-          <a-menu-item key="3-2">
-            <router-link to="">投诉管理</router-link>
-          </a-menu-item>
-          <a-menu-item key="3-3">
-            <router-link to="">客户列表</router-link>
-          </a-menu-item>
-        </a-sub-menu>
-        <a-menu-item key="悄悄话">
-          <router-link to="/chats">
-            <a-icon type="wechat"/>
-            <span>悄悄话</span>
-          </router-link>
-        </a-menu-item>
+
         <!--一级菜单-->
-        <a-sub-menu v-for="item in menulist" :key="item.authName">
+        <a-sub-menu v-for="item in menulist" :key="item.id">
           <span slot="title">
             <a-icon :type="item.icon"/>
-            <span>{{item.authName}}</span>
+            <span>{{item.name}}</span>
           </span>
           <!--二级菜单-->
-          <a-menu-item v-for="subItem in item.children" :key="subItem.authName">
-            <router-link :to="'/'+subItem.path">
-              {{ subItem.authName }}
+          <a-menu-item v-for="subItem in item.children" :key="subItem.id">
+            <router-link :to="'/'+subItem.component">
+              {{ subItem.componentName }}
             </router-link>
           </a-menu-item>
         </a-sub-menu>
@@ -148,24 +90,31 @@
       },
       logout() {
         /*清除cookie*/
-        sessionStorage.clear();
-        window.location.reload();
-        // this.reload();
-        this.$router.push('/login');
+        this.$axios({
+          method: 'get',
+          url: 'sys/logout'
+        }).then(res => {
+          this.$message.success('退出登录成功！');
+          sessionStorage.clear();
+          window.location.reload();
+          // this.reload();
+          this.$router.push('/login');
+        })
+        .catch(err => {
+          this.$message.success('退出登录失败！');
+        });
       }
     },
     computed: {
       ...mapState(['rightList', 'username']),
     },
     created() {
-      // console.log("layout=",this.$router.options.routes[0]);
+      // console.log("layout=",this.$route);
       this.menulist = this.rightList;
       this.openKeys = [window.sessionStorage.getItem('openKeys') === null ?
         this.$route.meta.title : window.sessionStorage.getItem('openKeys')];
       this.selectedKeys = [window.sessionStorage.getItem('selectedKeys') === null ?
        this.$route.meta.title : window.sessionStorage.getItem('selectedKeys')];
-      // this.openKeys = [this.$route.meta.title];
-      // this.selectedKeys = [this.$route.meta.model];
     }
   };
 </script>

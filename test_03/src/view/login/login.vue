@@ -1,8 +1,7 @@
 <template>
     <div class="login">
       <div class="login-con">
-<!--        <a-icon type="login" />-->
-        <a-card title="欢迎登录" hoverable :bordered="false" type="inner">
+        <a-card title="欢迎登录" style="background:rgba(75,54,33,0.25)" hoverable :bordered="false" type="inner">
           <login-form></login-form>
         </a-card>
       </div>
