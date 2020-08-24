@@ -1,6 +1,11 @@
 # test_03
-
+### 一个简单的vue
 > A Vue.js project
+> 项目技术
+>> Ant-Design
+>> vuex
+>> axios
+
 
 ## Build Setup
 
