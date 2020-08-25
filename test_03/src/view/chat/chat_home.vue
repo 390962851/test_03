@@ -161,12 +161,9 @@
     width: 1.2rem;
     height: 1.2rem;
   }
-
-  // position: absolute;
-
   .user-msg {
     width: 80%;
-    // position: absolute;
+    /*position: absolute;*/
     word-break: break-all;
     position: relative;
     z-index: 5;
