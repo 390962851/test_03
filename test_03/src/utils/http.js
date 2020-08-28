@@ -7,6 +7,7 @@ import router from "../router";
  */
 //配置请求的根路径
 axios.defaults.baseURL = 'http://localhost:8088';
+// axios.defaults.baseURL = 'http://192.168.159.129:8088';
 
 const actionMapping = {
   'get': 'view',
@@ -24,7 +25,6 @@ axios.interceptors.request.use((req) => {
     if (token) {
       req.headers.token = token;
     }
-
     //判断非权限范围内的请求
     // const aciton = actionMapping[req.method];
     // const currentRight =  router.currentRoute.meta;  //请求权限列表
@@ -40,7 +40,6 @@ axios.interceptors.request.use((req) => {
     // put 请求  edit
     // delete 请求  delete
     // [add view edit delete]
-
   }
   return req
 });

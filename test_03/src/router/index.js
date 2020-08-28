@@ -2,10 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import store from '@/store/index.js'
 import {ruleMappings, f} from './menu/menu'
-import Users from '@/components/user/Users.vue'
-import Roles from '@/components/role/Roles.vue'
-import GoodsCate from '@/components/goods/GoodsCate.vue'
-import GoodsList from '@/components/goods/GoodsList.vue'
 
 Vue.use(Router);
 

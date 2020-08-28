@@ -9,18 +9,14 @@
           <a-row :gutter="[16,16]">
             <a-col :span="16">
               <a-card>
-
                 <a-table :columns="columns" :data-source="data" :scroll="{ x: 1500, y: 400 }">
                   <a slot="action" slot-scope="text">action</a>
                 </a-table>
-
               </a-card>
             </a-col>
             <a-col :span="8">
               <a-card>
                 <EchartsBar></EchartsBar>
-
-
               </a-card>
             </a-col>
           </a-row>

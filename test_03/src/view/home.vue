@@ -31,10 +31,12 @@
         </a-card>
       </a-col>
 
-      <a-col :xl="10">
-        <EchartsLine></EchartsLine>
+      <a-col :span="10">
+        <a-card>
+          <EchartsLine></EchartsLine>
+        </a-card>
       </a-col>
-      <a-col :sm="24" :md="12" :xl="6" :style="{ marginBottom: '24px' }">
+      <a-col :span="7" :style="{ marginBottom: '24px' }">
         <a-card title="分析数据" :head-style="tstyle">
           <a slot="extra">
             <Tooltip></Tooltip>
@@ -51,12 +53,10 @@
               <a-progress type="circle" :percent="63" :width="80" status="normal" :strokeWidth="10"/>
             </a-col>
           </a-row>
-          <!--          <a-divider />-->
           <a-statistic-countdown title="剩余截至时间" :value="deadline" format="D 天 H 时 m 分 s 秒"/>
         </a-card>
       </a-col>
     </a-row>
-
   </div>
 
 </template>

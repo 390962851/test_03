@@ -1,9 +1,5 @@
 <template>
-  <a-card title="访问量" :style="{ height: '370px'}">
-    <div id="myCharts" :style="{width: '90%', height: '300px'}" ref="myCharts"></div>
-  </a-card>
-
-  <!-- <div style="height: 300px;width: 500px;" ref="myCharts"></div> -->
+  <div :style="{width: '92%', height: '350px'}" ref="myCharts"></div>
 </template>
 
 <script>
@@ -12,6 +8,18 @@
     data() {
       return {
         options: {
+          title: {
+            text: '访问人数',
+            textStyle: {
+              fontSize: 15,
+            },
+          },
+          grid: {
+            left: '3%',
+            right: '8%',
+            bottom: '3%',
+            containLabel: true
+          },
           legend: {
             data: ['访问人数']
           },
@@ -21,7 +29,7 @@
           xAxis: [{  //x轴坐标数据
             type: 'category',
             boundaryGap: false,
-            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+            data: []
           }],
           yAxis: [{   //y轴坐标数据
             type: 'value',
@@ -34,22 +42,32 @@
               name: "访问人数",
               type: "line",
               smooth: true,
-              data: [11, 11, 15, 13, 12, 13, 10],
+              data: [],
             },
           ]
         },
       }
     },
     mounted() {
-      const myCharts = this.$echarts.init(this.$refs.myCharts);
-
-      myCharts.setOption(this.options);
+      this.myCharts = this.$echarts.init(this.$refs.myCharts);
+      this.myCharts.setOption(this.options);
     },
     methods: {
       getHomeLineDate(){
-
+        this.$axios({
+          method: 'get',
+          url: '/visual/views'
+        })
+        .then(res => {
+          this.options.xAxis[0].data = res.data.result.xAxis;
+          this.options.series[0].data = res.data.result.seriesD;
+          this.myCharts.setOption(this.options);
+        })
       }
     },
+    created() {
+      this.getHomeLineDate();
+    }
   }
 </script>
 

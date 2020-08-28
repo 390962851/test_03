@@ -1,6 +1,5 @@
 <template>
-  <!-- <div style="height: 500px;width: 600px;" ref="myCharts"></div> -->
-  <div id="myCharts" :style="{width: '100%', height: '400px'}" ref="myCharts"></div>
+  <div id="myCharts" :style="{width: '100%', height: '518px'}" ref="myCharts"></div>
 </template>
 
 <script>
@@ -49,9 +48,8 @@
       }
     },
     mounted() {
-      const myCharts = this.$echarts.init(this.$refs.myCharts);
-      myCharts.setOption(this.options);
-      
+      this.myCharts = this.$echarts.init(this.$refs.myCharts);
+      this.myCharts.setOption(this.options);
     },
     methods: {},
   }

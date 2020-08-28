@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-modal v-model="showM" title="编辑信息" :width="'30%'">
-    <template slot="footer">
+      <template slot="footer">
         <a-button key="back" @click="handleCancel">返回</a-button>
         <a-button key="submit" type="primary" @click="handleOk">提交</a-button>
       </template>

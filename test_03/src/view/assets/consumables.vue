@@ -6,22 +6,8 @@
     <edit_consumables ref="addConsumables"></edit_consumables>
     <br />
     <a-table :columns="columns" :data-source="datatable" :pagination="false" rowKey="id">
-      <!-- <a slot="assetsName" slot-scope="text">{{ text }}</a> -->
       <span slot="customTitle">资产名称</span>
-
       <span slot="depreciationRate" slot-scope="depreciationRate">{{depreciationRate}}%</span>
-      <!-- 标签状态显示-->
-      <span slot="regular_status" slot-scope="regular_status">
-        <a-tag :key="regular_status.id" :color="regular_status.id <= 2 ? 'green' : 'red'">
-          <a-tooltip>
-            <template slot="title">
-              <span v-if="regular_status.dateTime !== null">{{ regular_status.dateTime }}</span>
-            </template>
-            {{ regular_status.name }}
-          </a-tooltip>
-        </a-tag>
-      </span>
-
       <!-- 操作-->
       <span slot="action" slot-scope="text, record">
         <a-row>
@@ -53,7 +39,7 @@
 
 </template>
 <script>
-  import edit_consumables from "../components/edit/edit_consumables.vue";
+  import edit_consumables from "../../components/edit/edit_consumables.vue";
   const columns = [
     {
       title: '序号',

@@ -25,7 +25,7 @@
     },
     components: {},
     created() {
-      initDynamicRoutes();
+      initDynamicRoutes();///防止动态路由刷新丢失
     }
   };
 </script>
