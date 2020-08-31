@@ -101,7 +101,7 @@
           this.$router.push('/login');
         })
         .catch(err => {
-          this.$message.success('退出登录失败！');
+          this.$message.error('退出登录失败！');
         });
       }
     },

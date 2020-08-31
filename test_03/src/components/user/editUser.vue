@@ -1,6 +1,6 @@
 <template>
-  <a-modal v-model="showM" title="编辑信息" :width="'30%'" @ok="onSubmit" ok-text="确认" cancel-text="取消">
-    <a-form-model ref="addUser" :rules="rules" :model="form" :label-col="labelCol" :wrapper-col="wrapperCol">
+  <a-modal v-model="showM" title="编辑信息" :width="'30%'" @ok="onSubmit" @cancel="onCancel" ok-text="确认" cancel-text="取消">
+  <a-form-model ref="addUser" :rules="rules" :model="form" :label-col="labelCol" :wrapper-col="wrapperCol">
       <a-form-model-item label="用户名" prop="userName">
         <a-input v-model="form.userName"/>
       </a-form-model-item>
@@ -76,6 +76,9 @@
             console.log('error submit!!');
           }
         });
+      },
+      onCancel(){
+        this.reload();
       },
       onChangeTime(date, dateString) {
         // console.log(date, dateString);

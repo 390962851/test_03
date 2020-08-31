@@ -1,5 +1,5 @@
 const userRule = {path: '/users', meta: {title: '用户管理',model: '用户列表'}, component: () => import('@/view/user/users.vue')};
-const roleRule = {path: '/roles', meta: {title: '角色管理',model: '角色列表'}, component: () => import('@/components/role/Roles.vue')};
+const roleRule = {path: '/roles', meta: {title: '角色管理',model: '角色列表'}, component: () => import('@/view/role/roles.vue')};
 const goodsRule = {path: '/goods_list', meta: {title: '',model: ''}, component: () => import('@/components/goods/GoodsCate.vue')};
 const categoryRule = {path: '/goods_categories',  meta: {title: '',model: ''}, component: () => import('@/components/goods/GoodsList.vue')};
 
@@ -15,7 +15,7 @@ const chats = {path: '/chats', name: 'chats', meta: {title: '聊天室', model: 
 
 
 const ruleMappings = {
-    'home': home,
+  'home': home,
   'regularAssets': regularAssets,
   'invisibleAssets': invisibleAssets,
   'consumables': consumables,
